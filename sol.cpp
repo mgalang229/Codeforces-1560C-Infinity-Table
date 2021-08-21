@@ -8,36 +8,22 @@ int main() {
 	int tt;
 	cin >> tt;
 	while (tt--) {
-		long long k;
+		int k;
 		cin >> k;
-		long long n = 1;
-		long long diff = 0;
+		// view the image in this repository for better understanding
 		// find a square number that is greater than or equal to 'k'
-		while (true) {
-			if (n * n >= k) {
-				break;
-			} else {
-				// increment 'n'
-				n++;
-				// increase 'diff' by 2 (this is range of the layers)
-				diff += 2;
-			}
-		}
-		if (k == 1) {
-			// if 'k' is equal to 1, then set 'diff' to 1
-			diff = 1;
-		}
-		// calculate the distance of 'k' from ('n' * 'n')
-		long long temp = (n * n) - k;
-		if (temp < n) {
-			// if the distance is within 'n', then the row is 'n' and 
-			// the column is their distance plus one
-			cout << n << " " << temp + 1;
+		int n = ceil(sqrt(k));
+		// to get the range of a layer, subtract 'n' by 1 and multiply it to 2
+		int range = (n - 1) * 2;
+		// calculate the difference of the square number and 'k'
+		int diff = (n * n) - k;
+		if (diff < n) {
+			// if 'diff' is less than 'n', then the row is 'n' itself and the column is ('diff' + 1)
+			cout << n << " " << diff + 1;
 		} else {
-			// otherwise, calculate the starting number in the respective layer
-			long long start_layer = (n * n) - diff;
-			// find the number of elements between 'k' and starting number in the layer
-			cout << k - start_layer + 1 << " " << n;
+			// otherwise, calculate the difference of 'k' and the starting number in a layer + 1
+			// for the row, and 'n' itself is the column
+			cout << k - ((n * n) - range) + 1 << " " << n;
 		}
 		cout << '\n';
 	}
